@@ -4,6 +4,8 @@
 - node modules 설치: yarn install
 - 개발 로컬 실행: gulp/gulp server (전체 소스가 없기 때문에 실행되지 않습니다)
 
+(포트폴리오 경로)[https://www.codecleanup.dev/69c628b4-e061-4281-bd60-ca221b4a6c84]
+
 ## gulp
 
 - svgTask.js: svg 스프라이트 이미지 및 scss 자동 생성
