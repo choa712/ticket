@@ -1,0 +1,36 @@
+*DS_Store*
+
+._*
+**/.sass-cache/**
+**/.__*.scss
+*.css.map
+.gulp-cache
+
+# Dependency directory
+# Commenting this out is preferred by some people, see
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
+node_modules
+
+# Garbage files
+.DS_Store
+
+# debug log
+*.log
+
+# compile file
+dist/
+
+# imgSprite
+src/m/resources/sass/**/vendors/*
+src/pc/resources/sass/**/vendors/*
+src/m/resources/sass/**/vendorsSvg/*
+src/pc/resources/sass/**/vendorsSvg/*
+src/m/resources/sass/**/vendorsSpr/*
+src/pc/resources/sass/**/vendorsSpr/*
+
+# SVG GUIDE 파일
+src/m/svg-guide
+src/pc/svg-guide
+
+# vscode 설정파일
+.vscode/*

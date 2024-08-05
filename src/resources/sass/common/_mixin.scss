@@ -1,0 +1,364 @@
+@charset "utf-8";
+
+@mixin dummy {
+  display: inline-block;
+  overflow: hidden;
+  height: 100%;
+  vertical-align: middle;
+  content: '';
+}
+
+@mixin clearfix {
+  &:after {
+    display: block;
+    clear: both;
+    content: '';
+  }
+}
+
+@mixin cover_layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@mixin flex_box($rate) {
+  position: relative;
+  height: 0;
+  padding-top: $rate;
+  .flex-target {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+  }
+  img.flex-target {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin clampNum($line) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $line;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+@mixin scrollTouch {
+  overflow: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@mixin u_tb {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+@mixin u_td {
+  display: table-cell;
+}
+
+@mixin btn_set($btn_color, $txt_color: true) {
+  border-color: $btn_color;
+
+  @if $txt_color == false {
+    color: color(black, 1);
+  } @else {
+    color: $btn_color;
+  }
+}
+
+@mixin is_bg($bg_color, $txt_color: color(white, 0)) {
+  background-color: $bg_color;
+  color: $txt_color;
+  border-color: $bg_color;
+}
+
+@mixin midCenterTransform($x, $y) {
+  transform: translate($x, $y);
+}
+
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin linear-gradient($parameters...) {
+  background: linear-gradient($parameters);
+}
+
+@mixin u-pop-cover($rate) {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  transition: background 0.4s cubic-bezier(0, 0, 0.2, 1);
+  z-index: 260;
+  .fixed-max-width {
+    height: 100%;
+  }
+  .pop-layer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: $rate;
+    background: color(white, 0);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    transform: translate3d(0, 100%, 0);
+    will-change: transform;
+    transition: transform 0.4s cubic-bezier(0, 0, 0.2, 1);
+  }
+  &.isAnimation {
+    background-color: rgba(51, 51, 51, 0.9);
+    .pop-layer {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  .tit {
+    height: 46px;
+    padding: 15px 15px 0;
+    border-bottom: 1px solid color(white, 3);
+    font-size: 16px;
+    font-weight: $fw-bold;
+    color: color(black, 1);
+    line-height: 18px;
+    strong {
+      font-weight: $fw-normal;
+    }
+  }
+
+  .pop-cont {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .lst-opt {
+    padding: 7px 0;
+  }
+}
+
+@mixin pngSprite-width($sprite) {
+  $sprite-width: nth($sprite, 5);
+  width: $sprite-width * 0.5;
+}
+@mixin pngSprite-height($sprite) {
+  $sprite-height: nth($sprite, 6);
+  height: $sprite-height * 0.5;
+}
+@mixin pngSprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x * 0.5 $sprite-offset-y * 0.5;
+}
+@mixin pngSprite-image($sprite, $folder: front) {
+  $sprite-image: nth($sprite, 9);
+  $sprite-size-width: nth($sprite, 7);
+  $sprite-size-height: nth($sprite, 8);
+  background-image: url('../css/vendors/#{$folder}/#{$sprite-image}');
+  background-size: $sprite-size-width * 0.5 $sprite-size-height * 0.5;
+}
+@mixin pngSpriteBase($sprite, $folder: front) {
+  @include pngSprite-image($sprite, $folder);
+  @include pngSprite-position($sprite);
+  @include pngSprite-width($sprite);
+  @include pngSprite-height($sprite);
+}
+// tmon/wish png 스프라이트 이미지 대응
+@mixin pngSprite($key, $folder: front) {
+  $image-map: if(map-has-key($pngSprite, $key), map-get($pngSprite, $key), null);
+  $default-image: null;
+  $tmon-image: null;
+  $wish-image: null;
+  @if $image-map != null {
+    $default-image: map-get($image-map, default);
+    $tmon-image: if(map-has-key($image-map, tmon), map-get($image-map, tmon), null);
+    $wish-image: if(map-has-key($image-map, wish), map-get($image-map, wish), null);
+  } @else {
+    $default-image: $key;
+  }
+  @include pngSpriteBase($default-image, $folder);
+  @if $tmon-image != null {
+    .tmon & {
+      @include pngSpriteBase($tmon-image, $folder);
+    }
+  }
+  @if $wish-image != null {
+    .wish & {
+      @include pngSpriteBase($wish-image, $folder);
+    }
+  }
+}
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+@mixin fixed($args...) {
+  @include position(fixed, $args...);
+}
+@mixin absolute($args...) {
+  @include position(absolute, $args...);
+}
+@mixin posrt($right: 0, $top: $right) {
+  @include absolute($right: $right, $top: $top);
+}
+@mixin poslt($left: 0, $top: $left) {
+  @include absolute($left: $left, $top: $top);
+}
+@mixin posrb($right: 0, $bottom: $right) {
+  @include absolute($right: $right, $bottom: $bottom);
+}
+@mixin poslb($left: 0, $bottom: $left) {
+  @include absolute($left: $left, $bottom: $bottom);
+}
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+@mixin ico-half {
+  content: '';
+  @include poslt(50%);
+  transform: translate(-50%, -50%);
+}
+@mixin ico-half-replace {
+  @include poslt(50%);
+  transform: translate(-50%, -50%);
+  @extend %no-text;
+}
+@mixin font($font-size, $line-height, $color: null, $font-weight: null) {
+  font-size: $font-size;
+  line-height: $line-height;
+  color: $color;
+  font-weight: $font-weight;
+}
+@mixin vt-m($height, $line-height: $height) {
+  height: $height;
+  line-height: $line-height;
+}
+@mixin animation-grp($name, $delay, $duration, $iteration-count, $direction, $fill-mode) {
+  animation-name: $name;
+  animation-delay: $delay;
+  animation-duration: $duration;
+  animation-iteration-count: $iteration-count;
+  animation-timing-function: $direction;
+  animation-fill-mode: $fill-mode;
+}
+// svg
+@mixin svg($url, $color: null, $position: 0 0, $repeat: no-repeat, $folder: front) {
+  background: $color url('../css/vendorsSvg/#{$folder}/#{$url}.svg?v=' + $time) $position $repeat;
+}
+@mixin svg-url($url, $folder: front) {
+  background-image: url('../css/vendorsSvg/#{$folder}/#{$url}.svg?v=' + $time);
+}
+@mixin svgsprite-bgposition($img) {
+  background-position: map-get($img, 'x') map-get($img, 'y');
+}
+@mixin svgsprite-rightbg($img, $width) {
+  width: $width;
+  background-position: (map-get($img, 'x') - (map-get($img, 'width') - $width)) map-get($img, 'y');
+}
+@mixin svgsprite-leftbg($img, $height) {
+  height: $height;
+  background-position: (map-get($img, 'y') - (map-get($img, 'height') - $height)) map-get($img, 'x');
+}
+@mixin svgsprite-width($img) {
+  width: map-get($img, 'width');
+}
+@mixin svgsprite-height($img) {
+  height: map-get($img, 'height');
+}
+@mixin svgsprite-size($img) {
+  width: map-get($img, 'width');
+  height: map-get($img, 'height');
+}
+@mixin svgspriteBase($img, $url: null, $folder: front, $color: null) {
+  @include svgsprite-size($img);
+  @if $url != null {
+    @include svg($url, $color, map-get($img, 'x') map-get($img, 'y'), no-repeat, $folder);
+  } @else {
+    @include svgsprite-bgposition($img);
+  }
+}
+// tmon/wish svg 스프라이트 이미지 대응
+@mixin svgsprite($key, $url: null, $folder: front) {
+  $image-map: if(map-has-key($svgSprite, $key), map-get($svgSprite, $key), null);
+  $default-image: null;
+  $tmon-image: null;
+  $wish-image: null;
+  @if $image-map != null {
+    $default-image: map-get($image-map, default);
+    $tmon-image: if(map-has-key($image-map, tmon), map-get($image-map, tmon), null);
+    $wish-image: if(map-has-key($image-map, wish), map-get($image-map, wish), null);
+  } @else {
+    $default-image: $key;
+  }
+  @include svgspriteBase($default-image, $url, $folder);
+  @if $tmon-image != null {
+    .tmon & {
+      @include svgspriteBase($tmon-image, if($url != null, $url + 'Tmon', null), $folder);
+    }
+  }
+  @if $wish-image != null {
+    .wish & {
+      @include svgspriteBase($wish-image, if($url != null, $url + 'Wish', null), $folder);
+    }
+  }
+}
+@mixin svgsprite-render-classes {
+  @each $shape in $svgsprite-shapes {
+    .#{map-get($shape, 'name')} {
+      @include svgspriteBase($shape);
+    }
+  }
+}
+
+@mixin svgcolor($img, $css: '', $width: null, $height: $width, $color: null, $repeat: no-repeat, $mask: null) {
+  //기본 이미지랑 크기가 다를 경우 width, height에 사이즈 입력, 사이즈 사용 안할경우 width에 'n' 입력, mask시 'y'
+  $svg: map-get($img, 'svg');
+  $svgsize: 'viewBox="0 0 ' + str-slice(#{map-get($img, 'width')}, 1, -3) + ' ' + str-slice(#{map-get($img, 'height')}, 1, -3) + '"';
+  @if $css!= '' {
+    $css: str-replace($css, '#', '%23');
+    $css: '<defs><style type="text/css">' + $css + '</style></defs>';
+  }
+  $svgprop: $color url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ' + $svgsize + '>' + $css + $svg + '</svg>') $repeat;
+  background: $svgprop;
+  @if $mask {
+    -webkit-mask: $svgprop;
+    mask: $svgprop;
+  }
+  @if $width!= 'n' {
+    @if $width {
+      @include size($width, $height);
+      background-size: 100%;
+    } @else {
+      @include svgsprite-size($img);
+    }
+  }
+}

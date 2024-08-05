@@ -1,0 +1,95 @@
+@charset "utf-8";
+// color-pallettes
+$palettes: (
+  white: (
+    0: #fff,
+    1: #ebebeb,
+    2: #ccc, // 랭킹 탭, 원스탑 최상단 안내
+    3: #f3f3f3, // 메인 메뉴, 카테고리
+    4: #f7f7f7, // datepicker, 마이페이지 구매확인증 팝업
+    5: #ddd,
+    6: #f8f8f8, // 티몬 푸터 배경
+    7: #bdbdbd, // 마이페이지 쿠폰다운 비활성화
+  ),
+  black: (
+    0: #222,
+    1: #434343,
+    2: #555,
+    3: #888,
+    4: #767676,
+    5: #c2c7cc, // 티몬 푸터 바 라인
+    6: #6c7580, // 티몬 푸터 폰트
+    7: #16181a, // 티몬 푸터 버튼 폰트
+    8: #b7bfc8, // 티몬 푸터 버튼 바 라인
+  ),
+  purple: (
+    0: #9D49F2,
+  ),
+  pink: (
+    0: #D6154C,
+  ),
+  blue: (
+    0: #2073E5,
+    1: #4B92F2,
+    2: #054DB2,
+    3: #e5f2ff, // datepicker
+    4: #334a64, // 예외컬러
+    5: #5c6e83, // 예외컬러
+  ),
+  green: (
+    0: #5cb8b2,
+  ),
+  orange: (
+    0: #cbc3bb, // 예외컬러
+    1: #fffcaf, // 예외컬러
+  ),
+  red: (
+    0: #EF3340, // 달력 일요일(위메프/티몬 공통)
+  ),
+);
+//wmp, tmon, wish 컬러 팔레트
+$palettesTheme: (
+  wmp: (
+    0: #EF3340, // primary
+    1: #a314bf, // gradation1(메인, 카테고리 스와이퍼)
+    2: #EF3340, // gradation2(메인, 카테고리 스와이퍼)
+    3: #FFF0F0, // secondary1(달력예매가능일)
+  ),
+  tmon: (
+    0: #F27935, // primary
+    1: #FFC441, // gradation1(메인, 카테고리 스와이퍼)
+    2: #EE4814, // gradation2(메인, 카테고리 스와이퍼)
+    3: #FFE8DB, // secondary1(달력예매가능일)
+  ),
+);
+//상위 클래스에 따른 1:1 컬러 매칭 정의
+@mixin themeColor($theme){
+  --primary: #{color($theme, 0, $palettesTheme)};
+  --gradation1 : #{color($theme, 1, $palettesTheme)};
+  --gradation2 : #{color($theme, 2, $palettesTheme)};
+  --secondary1 : #{color($theme, 3, $palettesTheme)};
+}
+@each $name, $color in $palettesTheme {
+  @if $name == wmp {
+    :root{
+      @include themeColor($name);
+    }
+  } @else{
+    .#{$name}{
+      @include themeColor($name);
+    }
+  }
+}
+
+$fw-thin: 100;
+$fw-extralight: 200;
+$fw-light: 300;
+$fw-normal: 400;
+$fw-medium: 500;
+$fw-semibold: 600;
+$fw-bold: 700;
+$fw-extrabold: 800;
+
+// Noto Sans > base-font 대체 / Times New Roman > sub-font 대체
+$base-font: 'AppleSDGothicNeo-Regular', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Noto Sans CJK KR", sans-serif;
+$sub-font: 'Roboto Slab', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Noto Sans CJK KR", sans-serif;

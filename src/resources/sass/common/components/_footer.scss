@@ -1,0 +1,209 @@
+#footer {
+  width: 100%;
+  padding-top: 5%;
+  padding-bottom: 20%;
+  @include font(11px, 18px, color(black, 4));
+  text-align: center;
+  background: color(white, 3);
+  * {
+    font-family: $sub-font;
+  }
+  .contact {
+    padding-bottom: 9px;
+    .tel {
+      @include font(12px, null, color(black, 1));
+      a {
+        font-size: 13px;
+        font-weight: $fw-bold;
+      }
+    }
+  }
+  .corp {
+    width: 235px;
+    margin: 0 auto;
+    .btn-toggle-info {
+      margin-bottom: 14px;
+      font-size: 12px;
+      span {
+        padding: 0;
+        &::after {
+          display: inline-block;
+          margin: 5px 0 0 3px;
+          @include size(10px, 6px);
+          @extend %sp;
+          vertical-align: top;
+          background: url('#{$sprPathCommon}/sp-common-culture-1.png') no-repeat;
+          background-size: 150px auto;
+          content: '';
+        }
+      }
+      + .toggle-info {
+        display: none;
+      }
+      &.active {
+        span {
+          &::after {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+          }
+        }
+        + .toggle-info {
+          display: block;
+        }
+      }
+    }
+    .toggle-info {
+      padding: 14px 0 28px;
+      text-align: left;
+      dt {
+        display: inline-block;
+        width: 110px;
+        vertical-align: top;
+      }
+      dd {
+        display: inline-block;
+        color: color(black, 1);
+      }
+    }
+  }
+  .text {
+    padding: 11px 0 17px;
+    color: color(black, 4);
+  }
+  ul {
+    padding-bottom: 6px;
+    li {
+      display: inline-block;
+      a {
+        @include font(12px, 15px, color(black, 2));
+        &.bold-text {
+          font-weight: $fw-semibold;
+        }
+      }
+      &:not(:first-child):before {
+        display: inline-block;
+        content: '';
+        @include size(1px, 8px);
+        margin: 0 8px;
+        background: color(white, 1);
+      }
+    }
+  }
+}
+/* bottom sticky menu bar */
+html.allmenuOpen #bottom-floating .menu li.allMenu {
+  background-position: -106px -399px;
+}
+#bottom-floating {
+  @include fixed(null, null, 0, 0);
+  width: 100%;
+  background: color(white, 0);
+  z-index: 200;
+  .btn-l {
+    padding: 12px 10px 14px 10px;
+    font-size: 18px;
+  }
+  .menu {
+    position: relative;
+    display: -webkit-flex;
+    justify-content: space-around;
+    -webkit-justify-content: space-around;
+    background: color(white, 0);
+    z-index: 200;
+    li {
+      @include size(60px);
+      span {
+        display: block;
+        @include size(35px, 25px);
+        margin: 0 auto;
+        @extend %sp;
+      }
+      > a {
+        display: flex;
+        align-items: center;
+        height: 100%;
+      }
+      &.wemakeprice span {
+        background-position: 0 -138px;
+      }
+      &.allmenu span {
+        background-position: -36px -138px;
+      }
+      &.culturehome span {
+        background-position: -72px -138px;
+      }
+      &.myticket span {
+        background-position: -108px -138px;
+      }
+      &.mypg span {
+        background-position: -144px -138px;
+      }
+    }
+  }
+  .btn-refrash {
+    @include posrt(14px, -127px);
+    @include size(33px);
+    border: 1px solid color(white, 2);
+    @extend %spBtnZip;
+    background-position: -321px 7px;
+    background-color: color(white, 0);
+  }
+  .btn-top {
+    @include posrt(14px, -48px);
+    @include size(33px);
+    border: 1px solid color(white, 2);
+    @extend %spBtnZip;
+    background-position: -205px 6px;
+    background-color: color(white, 0);
+  }
+}
+/*푸터가 없을경우*/
+.no-footer {
+  #bottom-floating .menu,
+  .onestop-wrap + #footer {
+    display: none;
+  }
+}
+/* bottom sticky go to top btn */
+.u-btn-floating {
+  @include fixed(null, 0, -50px, 0);
+  height: 0;
+  transition: all 0.4s cubic-bezier(0.41, 0.66, 0.54, 0.91);
+  opacity: 0;
+  &.active {
+    opacity: 1;
+    bottom: 122px;
+    z-index: 200;
+  }
+  .btn-top {
+    display: flex;
+    float: right;
+    margin-right: 15px;
+    text-align: center;
+    color: color(black, 4);
+    @extend %btnFloating;
+    span {
+      display: block;
+      overflow: hidden;
+      @include size(14px, 20px);
+      margin: auto;
+      @extend %sp;
+      background-position: -126px -9px;
+      font-size: 5px;
+      color: transparent;
+    }
+  }
+}
+.logout {
+  @include posrt(15px, 20px);
+  a {
+    display: inline-block;
+    @include size(64px, 32px);
+    padding: 7px 0 0;
+    border-radius: 5px;
+    border: 1px solid color(white, 1);
+    @include font(null, 14px, color(black, 2));
+    background: color(white, 0);
+    text-align: center;
+  }
+}

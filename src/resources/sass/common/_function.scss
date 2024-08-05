@@ -1,0 +1,15 @@
+// palletts color picker
+@function color($color, $value, $palette: $palettes) {
+  $color-type: map-get($palette, $color);
+  @if map-has-key($color-type, $value) {
+    @return map-get($color-type, $value);
+  } @else {
+    @warn "리스트에 해당하는 #{$value}번 값이 정의되어 있지 않습니다. #{$color-type}에 있는 값들 중에 하나를 골라주세요.";
+    @return null;
+  }
+}
+
+// sprImg url replace
+@function spr($path, $filename) {
+  @return url('#{$path}/#{$filename}');
+}

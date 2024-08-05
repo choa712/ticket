@@ -1,0 +1,56 @@
+{
+  "name": "ticket-ui",
+  "version": "1.0.0",
+  "description": "UI-Devloper resource",
+  "main": "gulpfile.babel.js",
+  "scripts": {
+    "build:review": "NODE_ENV=review gulp build && gulp review",
+    "build:dev": "NODE_ENV=dev gulp build",
+    "build:qa": "NODE_ENV=qa gulp build",
+    "build:stg": "NODE_ENV=stg gulp build",
+    "build:prod": "NODE_ENV=prod gulp build",
+    "clean": "gulp clean",
+    "pcsass": "gulp pcsass",
+    "watch": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.qoo10.it/scm/w-tmui/ticket-ui.git"
+  },
+  "author": "wemakeprice UI-Developer",
+  "license": "MIT",
+  "dependencies": {
+    "browser-sync-reuse-tab": "^1.0.3",
+    "dotenv": "^16.4.5",
+    "gulp-dependents": "^1.2.5",
+    "gulp-file-cache": "^0.0.1",
+    "gulp-htmllint": "^0.0.19",
+    "gulp-svg-sprite": "^2.0.3",
+    "gulp-svgmin": "^4.1.0",
+    "prettier": "^3.2.4"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "6.24.1",
+    "babel-register": "6.26.0",
+    "browser-sync": "2.24.6",
+    "del": "3.0.0",
+    "gulp": "4.0.2",
+    "gulp-autoprefixer": "5.0.0",
+    "gulp-cache": "1.0.2",
+    "gulp-cached": "1.1.1",
+    "gulp-if": "2.0.2",
+    "gulp-imagemin": "4.1.0",
+    "gulp-load-plugins": "1.5.0",
+    "gulp-plumber": "1.2.0",
+    "gulp-purify-css": "0.1.0",
+    "gulp-replace": "1.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-sass-glob": "1.0.9",
+    "gulp-sourcemaps": "2.6.4",
+    "gulp-wait": "0.0.2",
+    "gulp.spritesmith": "6.9.0",
+    "gulp.spritesmith-multi": "3.1.0",
+    "sass": "1.69.7",
+    "vinyl-buffer": "1.0.1"
+  }
+}

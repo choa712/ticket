@@ -1,0 +1,120 @@
+@charset "utf-8";
+
+%sp {
+  overflow: hidden;
+  display: inline-block;
+  background: var(--sp_common_culture) no-repeat;
+  background-size: 250px auto;
+  font-size: 5px;
+  color: transparent;
+}
+%spBtnZip {
+  display: inline-block;
+  background-image: var(--btn_zip);
+  background-repeat: no-repeat;
+  background-size: 500px auto;
+  @extend %no-text;
+}
+%spIcoZip {
+  display: inline-block;
+  background-image: var(--ico_zip);
+  background-repeat: no-repeat;
+  background-size: 250px auto;
+}
+%pointGradient {
+  @include linear-gradient(117deg, color(purple, 0) 1%, color(pink, 0));
+}
+%round {
+  border-radius: 8px;
+}
+
+%btnFloating {
+  width: 42px;
+  height: 42px;
+  padding: 6px;
+  border-radius: 30px;
+  box-shadow: 0 5px 10px 0 rgba(color(black, 0), 0.12);
+  background-color: color(white, 0);
+}
+
+%boxStyle {
+  border-radius: 8px;
+  box-shadow: 0 6px 10px 0 rgba(color(black, 0), 0.04);
+  border: solid 1px color(white, 3);
+  background-color: color(white, 0);
+}
+
+//상품리스트 내 상품정보
+%smallInfo {
+  .desc {
+    display: none;
+  }
+  .tit {
+    max-height: 36px;
+    margin-top: 9px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+  .open-period {
+    margin-top: 9px;
+  }
+  .u-flag {
+    margin: 15px 0 0;
+    &:empty {
+      height: 16px;
+      display: block;
+    }
+  }
+  .price {
+    position: absolute;
+    left: 15px;
+    bottom: 15px;
+  }
+  .grade {
+    display: none;
+  }
+}
+
+%header-ico {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin-top: -12px;
+  margin-left: -12px;
+  background-repeat: no-repeat;
+}
+
+%blind {
+  color: transparent;
+  font-size: 1px;
+  line-height: 0;
+}
+
+//inline
+%inline {
+  font-size: 0;
+}
+
+//no text
+%no-text {
+  color: transparent;
+  font-size: 1px;
+  line-height: 0;
+}
+//아이폰x 제스처 공간
+%safe-area-after {
+  &:after {
+    content: '';
+    display: block;
+    height: env(safe-area-inset-bottom);
+  }
+}
+%safe-area-margin {
+  margin-bottom: env(safe-area-inset-bottom);
+}
+%safe-area-padding {
+  padding-bottom: env(safe-area-inset-bottom);
+}

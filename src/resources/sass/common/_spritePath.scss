@@ -1,0 +1,57 @@
+// spr-img
+@import '../vendorsSpr/common';
+@import '../vendorsSpr/commonTmon';
+
+// PNG sprite
+@import '../vendors/common';
+@import '../vendors/commonTmon';
+@import '../vendors/error';
+@import '../vendors/promotion';
+
+// SVG sprite
+@import '../vendorsSvg/common';
+// @import '../vendorsSvg/commonTmon';
+
+// spr-img
+$sprPathCommon: '../css/images/front/spr-img/common';
+$sprPathCommonTmon: '../css/images/front/spr-img/commonTmon';
+
+//svgOld
+$svgPathCommon: '../css/images/front/svgOld/common';
+
+$themes: (
+  tmon: (
+    sprImgs: $commonTmon,
+    sprPath: $sprPathCommonTmon,
+  ),
+);
+:root {
+  @each $fileKey, $filename in $common {
+    --#{$fileKey}: #{spr($sprPathCommon, $filename)};
+  }
+}
+// 테마별 스타일 설정 (.tmon, .wish)
+@each $theme, $info in $themes {
+  .#{$theme} {
+    @each $fileKey, $filename in map-get($info, sprImgs) {
+      --#{$fileKey}: #{spr(map-get($info, sprPath), $filename)};
+    }
+  }
+}
+// PNG sprite
+// 이미지가 없는 경우 $pngSprite: (); 삭제하지 말고, 변수명만 삭제할 것!
+$pngSprite: (
+  $bg-footer-box: (
+    //구매확인증 로고
+    default: $bg-footer-box,
+    tmon: $bg-footer-box-tmon,
+  ),
+  $star-on: (
+    //관람후기작성 별점
+    default: $star-on,
+    tmon: $star-on-tmon,
+  ),
+);
+// SVG sprite
+// 이미지가 없는 경우 $svgSprite: (); 삭제하지 말고, 변수명만 삭제할 것!
+$svgSprite: ();
